@@ -102,7 +102,10 @@ abss x
 -- >>> next Rock
 -- Paper
 next :: RPS -> RPS
-next = undefined
+next Rock = Paper
+next Paper = Scissors
+next Scissors = Rock
+
 
 -- TASK:
 -- Define what it means for two RPS values to be equal
@@ -114,7 +117,11 @@ next = undefined
 -- False
 
 eqRPS :: RPS -> RPS -> Bool
-eqRPS = undefined
+eqRPS Rock Rock = True
+eqRPS Paper Paper = True
+eqRPS Scissors Scissors = True
+eqRPS _ _ = False
+
 
 -- TASK:
 -- Define a shorter version of beats using next and eqRPS
@@ -125,7 +132,7 @@ eqRPS = undefined
 -- True
 
 beats' :: RPS -> RPS -> Bool
-beats' = undefined
+beats' winner' loser' = eqRPS loser' $ next winner' 
 
 ------------
 -- Points --
@@ -212,7 +219,7 @@ addNat (Succ n1) n2 = Succ (addNat n1 n2)
 -- Succ (Succ (Succ (Succ (Succ (Succ Zero)))))
 
 multNat :: Nat -> Nat -> Nat
-multNat = undefined
+multNat n1 n2 = integerToNat (natToInteger n1 * natToInteger n2)
 
 -- TASK:
 -- Compare two Nats, returning an Ordering
@@ -221,7 +228,11 @@ multNat = undefined
 -- GT
 
 compareNat :: Nat -> Nat -> Ordering
-compareNat = undefined
+compareNat n1 n2 = undefined
+  where
+    int_n1 = natToInteger n1
+    int_n2 = natToInteger n2
+
 
 -- TASK:
 -- Return the maximum of two Nats
@@ -230,7 +241,7 @@ compareNat = undefined
 -- Succ (Succ Zero)
 
 maxNat :: Nat -> Nat -> Nat
-maxNat = undefined
+maxNat n1 n2 = undefined
 
 -----------------
 -- Expressions --
