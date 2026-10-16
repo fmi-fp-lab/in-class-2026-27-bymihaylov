@@ -10,6 +10,7 @@
 {-# OPTIONS_GHC -fwarn-unused-matches #-}
 
 module ADTs where
+import Language.Haskell.TH (Exp)
 
 -- TODO: talk about
 -- - join + write on discord
@@ -245,7 +246,7 @@ compareNat n1 n2
 -- Succ (Succ Zero)
 
 maxNat :: Nat -> Nat -> Nat
-maxNat n1 n2 = undefined
+maxNat n1 n2 = integerToNat $ max (natToInteger n1) (natToInteger n2)
 
 -----------------
 -- Expressions --
@@ -272,11 +273,38 @@ infixr 8 `Mult`
 -- 12
 
 eval :: Expr -> Integer
-eval = undefined
+eval expr = case expr of
+  Val x -> x
+  Plus lhs rhs -> eval lhs + eval rhs
+  Mult lhs rhs -> eval lhs * eval rhs
 
 -- TASK:
 -- Extend the Expr language with If expressions
 -- Interpret 0 as "false" and any non-zero value as "true"
+
+data Expr2
+  = Val2 Integer
+  | Plus2 Expr2 Expr2
+  | Mult2 Expr2 Expr2
+  | If2 Expr2 Expr2 Expr2
+  deriving (Show)
+
+infixr 7 `Plus2`
+infixr 8 `Mult2`
+infixr 0 `If2` -- nai nisak prioritet
+
+eval2 :: Expr2 -> Integer
+eval2 expr = case expr of
+  Val2 v -> v
+  Plus2 lhs rhs -> eval2 lhs + eval2 rhs
+  Mult2 lhs rhs -> eval2 lhs * eval2 rhs
+  If2 condition if_clause else_clause -> if eval2 condition /= 0 then eval2 if_clause else eval2 else_clause
+
+testIfExpr :: Expr2
+testIfExpr = If2 (Mult2 (Val2 5) (Val2 0)) (Val2 10) (Val2 200)
+
+-- >>> eval2 testIfExpr
+-- 200
 
 ------------
 -- Belote --

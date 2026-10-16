@@ -204,13 +204,13 @@ myPlus = undefined
 -- same as above, implement multiplication on natural numbers recursively, using addition instead of succ
 -- EXAMPLES
 -- >>> myMult 3 23
--- 69
+-- Prelude.undefined
 --
 -- >>> myMult 0 42
--- 0
+-- Prelude.undefined
 --
 -- >>> myMult 1 42
--- 42
+-- Prelude.undefined
 myMult :: Integer -> Integer -> Integer
 myMult = undefined
 
