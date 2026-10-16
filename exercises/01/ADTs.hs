@@ -228,10 +228,14 @@ multNat n1 n2 = integerToNat (natToInteger n1 * natToInteger n2)
 -- GT
 
 compareNat :: Nat -> Nat -> Ordering
-compareNat n1 n2 = undefined
-  where
-    int_n1 = natToInteger n1
-    int_n2 = natToInteger n2
+compareNat n1 n2
+  | int_n1 < int_n2  = LT
+  | int_n1 == int_n2 = EQ
+  -- | int_n1 > int_n2  = GT
+  | otherwise        = GT
+    where
+      int_n1 = natToInteger n1
+      int_n2 = natToInteger n2
 
 
 -- TASK:
