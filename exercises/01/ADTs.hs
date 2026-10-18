@@ -10,7 +10,9 @@
 {-# OPTIONS_GHC -fwarn-unused-matches #-}
 
 module ADTs where
-import Language.Haskell.TH (Exp)
+import Language.Haskell.TH (Exp, Lit (IntegerL))
+import Data.Type.Bool (Not)
+import Data.IntMap.Merge.Lazy (contramapSecondWhenMatched)
 
 -- TODO: talk about
 -- - join + write on discord
@@ -325,25 +327,59 @@ suitEquals Hearts Hearts = True
 suitEquals Spades Spades = True
 suitEquals Diamonds Diamonds = True
 suitEquals Clubs Clubs = True
+suitEquals _ _ = False
 
 -- TODO: Record syntax for representing a Card
 data Card = MkCard {rank :: Rank, suit :: Suit}
   deriving (Show)
 
 -- Data type for Contracts in the Belote game
-data Contract
+data Contract = Trump Suit | EverythingTrump | NothingTrump 
   deriving (Show)
 
 -- TASK:
 -- Check if a card is of a trump suit based on a given contract
 isTrump :: Contract -> Card -> Bool
-isTrump = undefined
+isTrump EverythingTrump _ = True
+isTrump NothingTrump _ = False
+isTrump (Trump trumpSuit) card = trumpSuit `suitEquals` (suit card)
 
 -- TASK:
 -- Assign a numerical power value to a card based on the contract
 -- Ensure that higher power values represent stronger cards
-cardPower :: Contract -> Card -> Integer
-cardPower = undefined
+cardPower :: Contract -> Card -> Integer -- https://belot.bg/belot/rules/
+cardPower contract card = 
+  case contract of
+      NothingTrump -> standardPower cardRank
+      EverythingTrump -> buffedPower cardRank
+      Trump trumpSuit -> if trumpSuit `suitEquals` cardSuit 
+                           then buffedPower  cardRank
+                           else standardPower cardRank
+    where
+      cardRank = rank card
+      cardSuit = suit card
+
+      standardPower :: Rank -> Integer
+      standardPower rnk = case rnk of
+        Ace   -> 11
+        Ten   -> 10
+        King  -> 4
+        Queen -> 3
+        Jack  -> 2
+        Nine  -> 0
+        Eight -> 0
+        Seven -> 0
+
+      buffedPower :: Rank -> Integer
+      buffedPower rnk = case rnk of
+        Jack  -> 20
+        Nine  -> 14
+        Ace   -> 11
+        Ten   -> 10
+        King  -> 4
+        Queen -> 3
+        Eight -> 0
+        Seven -> 0
 
 -- TASK:
 -- A data type to describe the different ways two cards can relate, given a contract
