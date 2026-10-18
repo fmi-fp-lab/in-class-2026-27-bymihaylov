@@ -311,17 +311,20 @@ testIfExpr = If2 (Mult2 (Val2 5) (Val2 0)) (Val2 10) (Val2 200)
 ------------
 
 -- Data type for Ranks in a card game
-data Rank = A
+data Rank = Seven | Eight | Nine | Ten | Jack | Queen | King | Ace
   deriving (Show)
 
 -- Data type for Suits in a card game
-data Suit = B
+data Suit = Hearts | Spades | Diamonds | Clubs
   deriving (Show)
 
 -- TASK:
 -- Check if two suits are equal
 suitEquals :: Suit -> Suit -> Bool
-suitEquals = undefined
+suitEquals Hearts Hearts = True
+suitEquals Spades Spades = True
+suitEquals Diamonds Diamonds = True
+suitEquals Clubs Clubs = True
 
 -- TODO: Record syntax for representing a Card
 data Card = MkCard {rank :: Rank, suit :: Suit}
