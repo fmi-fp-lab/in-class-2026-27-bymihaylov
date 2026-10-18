@@ -10,9 +10,9 @@
 {-# OPTIONS_GHC -fwarn-unused-matches #-}
 
 module ADTs where
-import Language.Haskell.TH (Exp, Lit (IntegerL))
-import Data.Type.Bool (Not)
-import Data.IntMap.Merge.Lazy (contramapSecondWhenMatched)
+-- import Language.Haskell.TH (Exp, Lit (IntegerL))
+-- import Data.Type.Bool (Not)
+-- import Data.IntMap.Merge.Lazy (contramapSecondWhenMatched)
 
 -- TODO: talk about
 -- - join + write on discord
