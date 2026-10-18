@@ -10,8 +10,8 @@
 {-# OPTIONS_GHC -fwarn-unused-matches #-}
 
 module ADTs where
-import GHC.Float (castWord32ToFloat)
-import Control.Monad.Cont (cont)
+-- import GHC.Float (castWord32ToFloat)
+-- import Control.Monad.Cont (cont)
 -- import Language.Haskell.TH (Exp, Lit (IntegerL))
 -- import Data.Type.Bool (Not)
 -- import Data.IntMap.Merge.Lazy (contramapSecondWhenMatched)
