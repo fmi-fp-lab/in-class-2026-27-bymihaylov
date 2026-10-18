@@ -10,6 +10,8 @@
 {-# OPTIONS_GHC -fwarn-unused-matches #-}
 
 module ADTs where
+import GHC.Float (castWord32ToFloat)
+import Control.Monad.Cont (cont)
 -- import Language.Haskell.TH (Exp, Lit (IntegerL))
 -- import Data.Type.Bool (Not)
 -- import Data.IntMap.Merge.Lazy (contramapSecondWhenMatched)
@@ -399,19 +401,98 @@ cardPower contract card =
 --
 -- HINT:
 -- The intended solution has 4 constructors
-data CardRelation
+data CardRelation = SameSuit | FirstTrumps | SecondTumps | NeitherTrumps
+
   deriving (Show)
 
 -- TASK:
 -- Given a contract, calculate how two cards relate
 relateCards :: Contract -> Card -> Card -> CardRelation
-relateCards = undefined
+relateCards contract fstCard sndCard
+  | (suit fstCard) `suitEquals` (suit sndCard)                 = SameSuit
+  | isTrump contract fstCard && not (isTrump contract sndCard) = FirstTrumps
+  | not (isTrump contract fstCard) && isTrump contract sndCard = SecondTumps
+  | otherwise                                                  = NeitherTrumps
+
+
+
+rankStrength :: Contract -> Card -> Integer
+rankStrength contract card = 
+  case (trump, cardRank) of
+    (True, Jack) -> 9
+    (True, Nine) -> 8
+    (_, Ace)     -> 7
+    (_, Ten)     -> 6
+    (_, King)    -> 5
+    (_, Queen)   -> 4
+    (False, Jack)-> 3
+    (False, Nine)-> 2
+    (_, Eight)   -> 1
+    (_, Seven)   -> 0 
+  where
+    cardRank = rank card
+    trump = isTrump contract card 
 
 -- TASK:
 -- Given a contract and two cards, return the winning card
 -- Assume the first card is played first
 fight :: Contract -> Card -> Card -> Card
-fight = undefined
+fight contract fstCard sndCard = case relateCards contract fstCard sndCard of
+  FirstTrumps   -> fstCard
+  SecondTumps   -> sndCard
+  SameSuit      -> compareStrenght
+  NeitherTrumps -> case contract of
+                    EverythingTrump -> compareStrenght
+                    _               -> fstCard
+  where
+    compareStrenght :: Card
+      | rankStrength contract fstCard >= rankStrength contract sndCard = fstCard
+      | otherwise                                                      = sndCard
+
+
+aceSpades = MkCard {rank = Ace, suit = Spades}
+jackHearts = MkCard {rank = Jack, suit = Hearts}
+
+----------------- NothingTrump
+-- >>> fight NothingTrump aceSpades jackHearts
+-- MkCard {rank = Ace, suit = Spades}
+
+-- >>> fight NothingTrump jackHearts aceSpades
+-- MkCard {rank = Jack, suit = Hearts}
+
+-- >>> fight NothingTrump (MkCard Ace Spades) (MkCard Jack Spades)
+-- MkCard {rank = Ace, suit = Spades}
+
+-- >>> fight NothingTrump (MkCard Jack Spades) (MkCard Ace Spades)
+-- MkCard {rank = Ace, suit = Spades}
+
+----------------- EverythingTrump
+-- >>> fight EverythingTrump aceSpades jackHearts
+-- MkCard {rank = Jack, suit = Hearts}
+
+-- >>> fight EverythingTrump jackHearts aceSpades
+-- MkCard {rank = Jack, suit = Hearts}
+
+-- >>> fight EverythingTrump (MkCard Ace Spades) (MkCard Jack Spades)
+-- MkCard {rank = Jack, suit = Spades}
+
+-- >>> fight EverythingTrump (MkCard Jack Spades) (MkCard Ace Spades)
+-- MkCard {rank = Jack, suit = Spades}
+
+----------------- Trump Spades
+-- >>> fight (Trump Spades) jackHearts aceSpades
+-- MkCard {rank = Ace, suit = Spades}
+
+----------------- Trump Hearts
+-- >>> fight (Trump Hearts) jackHearts aceSpades
+-- MkCard {rank = Jack, suit = Hearts}
+
+----------------- Trump Diamonds
+-- >>> fight (Trump Diamonds) jackHearts aceSpades
+-- MkCard {rank = Jack, suit = Hearts}
+
+-- >>> fight (Trump Diamonds) aceSpades jackHearts
+-- MkCard {rank = Ace, suit = Spades}
 
 -- Data type for a trick (игра, разигравка, ръка, рунд), consisting of four cards
 data Trick
