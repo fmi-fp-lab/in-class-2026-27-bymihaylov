@@ -243,8 +243,9 @@ first f (MkTuple x y) = MkTuple (f x) y
 -- >>> curry (\(MkTuple x y) -> x * y) 23 3
 -- 69
 
+
 curry :: (Tuple a b -> c) -> a -> b -> c
-curry = undefined
+curry f x y = f $ MkTuple x y
 
 -- TASK:
 -- Convert a two argument function, to one that takes a Tuple.
@@ -308,7 +309,7 @@ data Nat
 -- Can you implement a general enough higher-order function (called `foldNat` here), such that you can then use to
 -- implement both of `addNat` and `multNat` by passing suitable arguments? What are those arguments?
 --
--- foldNat :: ???
+-- foldNat :: (Nat -> Nat) -> Nat -> Nat
 -- foldNat = ???
 
 -- TASK:
