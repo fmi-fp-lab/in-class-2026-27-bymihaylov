@@ -214,7 +214,7 @@ compose f g x = f (g x)
 -- 1024
 
 iterateN :: (a -> a) -> a -> Integer -> a
-iterateN f baseval 0 = baseval
+iterateN _ baseval 0 = baseval
 iterateN f baseval n = f $ iterateN f baseval (n-1)
 
 -- TASK:
@@ -224,7 +224,7 @@ iterateN f baseval n = f $ iterateN f baseval (n-1)
 -- MkTuple 69 42
 
 swap :: Tuple a b -> Tuple b a
-swap = undefined
+swap (MkTuple a b) = MkTuple b a
 
 -- TASK:
 -- Apply a function to only the first component of a tuple
