@@ -285,8 +285,8 @@ if' p x y = if p then x else y
 -- Apply two different functions to the two different arguments of a tuple
 -- Think about what the type should be.
 
--- mapTuple :: ???
--- mapTuple = undefined
+mapTuple :: (first -> first') -> (second -> second') -> (Tuple first second) -> (Tuple first' second')
+mapTuple f g (MkTuple x y) = MkTuple (f x) (g y) 
 
 data Nat
     = Zero
