@@ -254,7 +254,7 @@ curry f x y = f $ MkTuple x y
 -- 69
 
 uncurry :: (a -> b -> c) -> Tuple a b -> c
-uncurry = undefined
+uncurry f (MkTuple x y) = f x y
 
 -- TASK:
 -- > p `on` f
