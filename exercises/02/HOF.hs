@@ -169,7 +169,7 @@ sndTuple (MkTuple _ b) = b
 -- 42
 
 const :: a -> b -> a
-const = undefined
+const arg _ = arg
 
 -- TASK:
 -- Compose two functions, very useful very often
@@ -187,9 +187,9 @@ compose f g x = f (g x)
 猫 :: Integer
 猫 = 5
 
--- Play around with the syntax (how many parenthesis can you stuff in here?)
-(.) :: (b -> c) -> (a -> b) -> a -> c
-(.) = compose
+-- -- Play around with the syntax (how many parenthesis can you stuff in here?)
+-- (.) :: (b -> c) -> (a -> b) -> a -> c
+-- (.) = compose
 
 -- >>> let f = (*5) . (+5) in f 4
 -- 45
@@ -214,7 +214,8 @@ compose f g x = f (g x)
 -- 1024
 
 iterateN :: (a -> a) -> a -> Integer -> a
-iterateN = undefined
+iterateN f baseval 0 = baseval
+iterateN f baseval n = f $ iterateN f baseval (n-1)
 
 -- TASK:
 -- Swap the two elements of a tuple

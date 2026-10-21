@@ -10,11 +10,6 @@
 {-# OPTIONS_GHC -fwarn-unused-matches #-}
 
 module ADTs where
--- import GHC.Float (castWord32ToFloat)
--- import Control.Monad.Cont (cont)
--- import Language.Haskell.TH (Exp, Lit (IntegerL))
--- import Data.Type.Bool (Not)
--- import Data.IntMap.Merge.Lazy (contramapSecondWhenMatched)
 
 -- TODO: talk about
 -- - join + write on discord
@@ -450,8 +445,8 @@ fight contract fstCard sndCard = case relateCards contract fstCard sndCard of
       | otherwise                                                      = sndCard
 
 
-aceSpades = MkCard {rank = Ace, suit = Spades}
-jackHearts = MkCard {rank = Jack, suit = Hearts}
+let aceSpades :: Card = MkCard {rank = Ace, suit = Spades} in aceSpades
+let jackHearts :: Card = MkCard {rank = Jack, suit = Hearts}
 
 ----------------- NothingTrump
 -- >>> fight NothingTrump aceSpades jackHearts
