@@ -233,7 +233,7 @@ swap (MkTuple a b) = MkTuple b a
 -- MkTuple 42 1337
 
 first :: (a -> b) -> Tuple a c -> Tuple b c
-first = undefined
+first f (MkTuple x y) = MkTuple (f x) y
 
 -- TASK:
 -- Convert a function operating on a tuple, to one that takes two arguments.
