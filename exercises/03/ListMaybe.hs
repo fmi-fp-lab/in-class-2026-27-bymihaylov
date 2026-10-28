@@ -112,7 +112,8 @@ listFromRange begin end
 -- 1
 
 product :: [Integer] -> Integer
-product = undefined
+product [] = 1
+product (x : xs) = x * product xs
 
 -- TASK:
 -- Implement factorial with prod and listFromRange
