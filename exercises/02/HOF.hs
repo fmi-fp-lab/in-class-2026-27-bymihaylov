@@ -309,8 +309,8 @@ data Nat
 -- Can you implement a general enough higher-order function (called `foldNat` here), such that you can then use to
 -- implement both of `addNat` and `multNat` by passing suitable arguments? What are those arguments?
 --
--- foldNat :: (Nat -> Nat) -> Nat -> Nat
--- foldNat = ???
+foldNat :: (Nat -> Nat) -> Nat -> Nat
+foldNat f = 
 
 -- TASK:
 -- If your function is "good enough" you should also be able to implement exponentiation using it.
