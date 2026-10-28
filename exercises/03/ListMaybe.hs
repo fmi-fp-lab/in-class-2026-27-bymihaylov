@@ -142,8 +142,9 @@ divisors x = [ y | y <- [1..x], x `mod` y == 0]
 -- >>> isPrime 8
 -- False
 
+
 isPrime :: Integer -> Bool
-isPrime = undefined
+isPrime x = divisors x == [1, x]
 
 -- TASK:
 -- Get the last element in a list.
