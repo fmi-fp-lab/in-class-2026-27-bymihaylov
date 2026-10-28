@@ -195,8 +195,9 @@ ix idx (_:xs) = ix (idx-1) xs
 -- []
 
 drop :: Integer -> [a] -> [a]
-drop = undefined
-
+drop 0 lst = lst
+drop _ [] = []
+drop n (_:xs) = drop (n-1) xs
 -- TASK:
 -- "Take" the first n elements of a list.
 -- If n > length xs, then you should take as many as you can.
