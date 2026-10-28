@@ -118,7 +118,8 @@ product (x : xs) = x * product xs
 -- TASK:
 -- Implement factorial with prod and listFromRange
 fact :: Integer -> Integer
-fact = undefined
+fact 0 = 1
+fact n = n * fact (n-1)
 
 -- TASK:
 -- Return a list of the numbers that divide the given number.
