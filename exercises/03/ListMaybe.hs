@@ -18,6 +18,7 @@ module ListMaybe where
 
 -- Hoho, that's a lot of hidden functions
 import Prelude hiding (all, and, concat, drop, filter, length, map, null, product, replicate, reverse, subtract, sum, take, zip, zipWith, (++))
+import Data.Char (GeneralCategory(NotAssigned))
 
 -- TODO:
 -- ask about progress/problems with homework (see README, remind about formatter, etc.)
@@ -181,8 +182,9 @@ length (_ : xs) = 1 + length xs
 -- Nothing
 
 ix :: Integer -> [a] -> Maybe a
-ix = undefined
-
+ix _ [] = Nothing
+ix 0 (x:_) = Just x
+ix idx (_:xs) = ix (idx-1) xs
 -- TASK:
 -- "Drop" the first n elements of a list.
 -- If n > length xs, then you should drop them all.
