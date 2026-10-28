@@ -99,7 +99,9 @@ headMaybe (x : _) = Just x
 -- []
 
 listFromRange :: Integer -> Integer -> [Integer]
-listFromRange = undefined
+listFromRange begin end 
+  | begin > end = []
+  | otherwise = begin : listFromRange (begin + 1) end
 
 -- TASK:
 -- Multiply all the elements of a list
