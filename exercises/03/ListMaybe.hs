@@ -155,7 +155,9 @@ isPrime x = divisors x == [1, x]
 -- Just 3
 
 lastMaybe :: [a] -> Maybe a
-lastMaybe = undefined
+lastMaybe [] = Nothing
+lastMaybe [x] = Just x
+lastMaybe (_ : xs) = lastMaybe xs
 
 -- TASK:
 -- Calculate the length of a list.
