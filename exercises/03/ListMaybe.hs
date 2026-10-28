@@ -132,7 +132,7 @@ fact n = n * fact (n-1)
 -- [1,2,3,4,6,8,12,24]
 
 divisors :: Integer -> [Integer]
-divisors = undefined
+divisors x = [ y | y <- [1..x], x `mod` y == 0]
 
 -- TASK:
 -- Implement prime number checking using listFromRange and divisors
