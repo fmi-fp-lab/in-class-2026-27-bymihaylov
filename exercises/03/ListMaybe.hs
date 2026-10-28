@@ -168,7 +168,8 @@ lastMaybe (_ : xs) = lastMaybe xs
 -- 0
 
 length :: [a] -> Integer
-length = undefined
+length [] = 0
+length (_ : xs) = 1 + length xs
 
 -- TASK:
 -- Return the nth element from a list (we count from 0).
