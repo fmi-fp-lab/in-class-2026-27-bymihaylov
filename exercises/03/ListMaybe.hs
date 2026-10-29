@@ -329,8 +329,9 @@ all pred lst = and $ map pred lst
 -- []
 
 cartesian :: [a] -> [b] -> [(a, b)]
-cartesian = undefined
-
+cartesian [] ys = []
+cartesian xs [] = []
+cartesian (x:xs) ys = append (map (\y -> (x,y)) ys) (cartesian xs ys)
 -- TASK:
 -- We can generalise cartesian to work with arbitrary functions instead of just (,),
 -- taking elements "each with each"
