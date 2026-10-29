@@ -241,7 +241,7 @@ append (x:xs) ys = x : append xs ys
 -- []
 
 concat :: [[a]] -> [a]
-concat = undefined
+concat lst = [x | xs <- lst, x <- xs]
 
 -- TASK:
 -- Reverse a list. It's fine to do this however you like.
