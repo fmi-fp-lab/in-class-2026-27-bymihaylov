@@ -364,7 +364,10 @@ lift2List func (x:xs) ys = append (map (\y -> x `func` y) ys) (lift2List func xs
 -- [2,3,5,7,11,13,17,19]
 
 filter :: (a -> Bool) -> [a] -> [a]
-filter = undefined
+filter _ [] = []
+filter p (x:xs)
+  | p x = x : filter p xs
+  | otherwise = filter p xs
 
 data Digit
     = Zero
