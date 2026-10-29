@@ -265,7 +265,7 @@ reverse lst = go [] lst
 -- [1,4,9,25]
 
 squareList :: [Integer] -> [Integer]
-squareList = undefined
+squareList lst = [x^2 | x <- lst]
 
 -- TASK:
 -- Pair up the given element with each of the elements a list.
