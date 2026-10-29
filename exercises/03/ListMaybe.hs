@@ -252,7 +252,11 @@ concat lst = [x | xs <- lst, x <- xs]
 -- []
 
 reverse :: [a] -> [a]
-reverse = undefined
+reverse lst = go [] lst
+  where
+    go :: [a] -> [a] -> [a]
+    go acc [] = acc
+    go acc (x : xs) = go (x : acc) xs 
 
 -- TASK:
 -- Square all the numbers in a list
