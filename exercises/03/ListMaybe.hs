@@ -347,7 +347,9 @@ cartesian (x:xs) ys = append (map (\y -> (x,y)) ys) (cartesian xs ys)
 -- [(1,4),(1,5),(1,6),(2,4),(2,5),(2,6),(3,4),(3,5),(3,6)]
 
 lift2List :: (a -> b -> c) -> [a] -> [b] -> [c]
-lift2List = undefined
+-- lift2List func xs ys = [x `func` y | x <- xs, y <- ys]
+lift2List _ [] _ = []
+lift2List func (x:xs) ys = append (map (\y -> x `func` y) ys) (lift2List func xs ys)
 
 -- TASK:
 -- The "filtering" part of a list comprehension - leave only those elements, that satisfy the given predicate.
