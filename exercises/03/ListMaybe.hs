@@ -19,6 +19,7 @@ module ListMaybe where
 -- Hoho, that's a lot of hidden functions
 import Prelude hiding (all, and, concat, drop, filter, length, map, null, product, replicate, reverse, subtract, sum, take, zip, zipWith, (++))
 import Data.Char (GeneralCategory(NotAssigned))
+import Control.Arrow (ArrowApply(app))
 
 -- TODO:
 -- ask about progress/problems with homework (see README, remind about formatter, etc.)
@@ -208,8 +209,11 @@ drop n (_:xs) = drop (n-1) xs
 -- [1,2,3,4,5,6,7,8,9,10]
 
 take :: Integer -> [a] -> [a]
-take = undefined
-
+take _ [] = []
+take n (x:xs)
+  | n < 0 = error "idiot"
+  | n == 0 = []
+  | otherwise = x : take (n - 1) xs
 -- TASK:
 -- Append one list to another. append [1,2,3] [4,5,6] == [1,2,3,4,5,6]
 -- This is called (++) in the base library.
@@ -224,8 +228,8 @@ take = undefined
 -- [4,5,6]
 
 append :: [a] -> [a] -> [a]
-append = undefined
-
+append [] ys = ys
+append (x:xs) ys = x : append xs ys
 -- TASK:
 -- Concatenate all the lists together.
 
