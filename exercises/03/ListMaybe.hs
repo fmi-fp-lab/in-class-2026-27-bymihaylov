@@ -315,7 +315,7 @@ and (x:xs) = x && and xs
 -- False
 
 all :: (a -> Bool) -> [a] -> Bool
-all = undefined
+all pred lst = and $ map pred lst
 
 -- TASK:
 -- Implement the cartesian product of two lists.
