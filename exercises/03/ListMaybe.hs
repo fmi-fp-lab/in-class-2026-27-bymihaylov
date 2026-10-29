@@ -302,7 +302,8 @@ map f (x:xs) = f x : map f xs
 -- True
 
 and :: [Bool] -> Bool
-and = undefined
+and [] = True
+and (x:xs) = x && and xs
 
 -- TASK:
 -- Check if all the elements of a list satisfy a predicate
