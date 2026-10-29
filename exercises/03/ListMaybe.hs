@@ -274,7 +274,7 @@ squareList lst = [x^2 | x <- lst]
 -- [(42,69),(42,7),(42,42)]
 
 megaPair :: a -> [b] -> [(a, b)]
-megaPair = undefined
+megaPair lhs lst = [(lhs, x) | x <- lst]
 
 -- TASK:
 -- Both of those functions above have the same structure - apply a function to each element of a list.
