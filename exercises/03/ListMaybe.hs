@@ -288,7 +288,8 @@ megaPair lhs lst = [(lhs, x) | x <- lst]
 -- [(3,1),(3,2),(3,3)]
 
 map :: (a -> b) -> [a] -> [b]
-map = undefined
+map _ [] = []
+map f (x:xs) = f x : map f xs
 
 -- TASK:
 -- Check if all the elements in a list are True.
